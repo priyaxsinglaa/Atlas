@@ -1,19 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Home } from "./pages/Home";
+import { About } from "./pages/About";
+import { Country } from "./pages/Country";
+import { Contact } from "./pages/Contact";
+import { ErrorPage } from "./pages/ErrorPage";
+import { AppLayout } from "./components/Layout/AppLayout";
 
-  return (
-    <div>
-      <h1> My React APP </h1>
-      <h2> My react implement with CI/CD </h2>
-      <h3> with github Actions </h3>
-      <h4> priya singla </h4>
-    </div>
-  )
-}
+import { CountryDetails } from "./components/Layout/CountryDetails";
 
-export default App
+const router = createBrowserRouter([
+    {  path: "/",
+      element: <AppLayout />,
+      errorElement: <ErrorPage />,
+      children: [ 
+       {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "about",
+          element: <About />,
+        },
+        {
+          path: "country",
+          element: <Country />,
+        },{
+          path: "country/:id",
+          element: <CountryDetails />,
+        },
+        {
+          path: "contact",
+          element: <Contact />,
+        },
+    ],
+  },
+]);
+
+
+const App = () => {
+  return <RouterProvider router={router}> </RouterProvider>
+};
+
+export default App;
